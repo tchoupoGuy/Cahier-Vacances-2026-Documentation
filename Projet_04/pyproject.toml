@@ -1,0 +1,20 @@
+[project]
+name = "projet-04-rag-llm"
+version = "0.1.0"
+description = "Assistant virtuel RAG de l'Hôtel Le Belvédère — réécriture pro du Projet 04."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.26",
+    "pypdf>=4.0",
+    "transformers>=4.40",
+    "sentence-transformers>=3.0",
+    "torch>=2.2",
+    "pandas-stubs~=3.0.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

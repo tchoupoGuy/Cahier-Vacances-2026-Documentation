@@ -1,0 +1,17 @@
+[project]
+name = "projet-06-series-temporelles"
+version = "0.1.0"
+description = "Prévision des ventes de glaces (ARMA) — réécriture pro du Projet 06."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "statsmodels>=0.14",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

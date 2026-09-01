@@ -1,0 +1,22 @@
+# Environnements virtuels (un par projet, ex: Projet_01/.venv/)
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# IDE
+.idea/
+.DS_Store
+
+# Artefacts d'entraînement volumineux (régénérables via les scripts
+# d'entraînement de chaque projet, pas nécessaires pour lire la doc/le code) :
+# GitHub refuse tout fichier > 100 Mo.
+*.joblib
+*.h5
+*.pkl
+*.pt
+*.ckpt

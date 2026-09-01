@@ -1,0 +1,16 @@
+[project]
+name = "projet-03-clustering-tsp"
+version = "0.1.0"
+description = "Découpage et routage du Tour de France 2027 — réécriture pro du Projet 03."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "scikit-learn>=1.4",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

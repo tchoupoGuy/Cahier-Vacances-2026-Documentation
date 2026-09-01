@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: support-client-db
+    environment:
+      POSTGRES_DB: support_client
+      POSTGRES_USER: support_user
+      POSTGRES_PASSWORD: "SupportDev2026"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:
+  

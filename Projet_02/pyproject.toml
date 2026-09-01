@@ -1,0 +1,18 @@
+[project]
+name = "projet-02-ml-coupe-du-monde"
+version = "0.1.0"
+description = "Prédiction du vainqueur de la Coupe du Monde 2030 — réécriture pro du Projet 02."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "scikit-learn>=1.4",
+    "matplotlib>=3.8",
+    "joblib>=1.3",
+    "pandas-stubs~=3.0.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

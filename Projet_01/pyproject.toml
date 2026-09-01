@@ -1,0 +1,17 @@
+[project]
+name = "projet-01-sql-reservations"
+version = "0.1.0"
+description = "Analyse SQL d'une base de réservations de vols — réécriture pro du Projet 01."
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.0",
+    "matplotlib>=3.8",
+    "pytest>=9.1.1",
+    "pandas-stubs~=3.0.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
