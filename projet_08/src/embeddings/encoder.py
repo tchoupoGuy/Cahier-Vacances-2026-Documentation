@@ -8,7 +8,16 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
+
 DEFAULT_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+# Alternative plus grosse et plus précise (768 dimensions contre 384, environ
+# 2x plus lente à charger et encoder) : "sentence-transformers/paraphrase-
+# multilingual-mpnet-base-v2". Avant de changer DEFAULT_MODEL, lancer
+# `scripts/compare_embedding_models.py` : il mesure la précision et la
+# vitesse des deux modèles sur les VRAIES fiches et questions du projet,
+# plutôt que de trancher à l'instinct. Un changement de modèle déplace aussi
+# la distribution des scores de similarité — SEUIL_CONFIANCE_PAR_DEFAUT
+# (src/agent/repondre_a_la_question.py) doit être revérifié en même temps.
 
 
 def load_encoder(model_name: str = DEFAULT_MODEL):

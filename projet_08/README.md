@@ -14,7 +14,8 @@ Projet_08/
 │   └── knowledge_base/            # 19 fiches PDF, 5 catégories (commandes, comptes, livraisons, paiements, retours)
 ├── scripts/
 │   ├── 01-schema.sql               # schéma PostgreSQL (auto-appliqué au premier démarrage du conteneur)
-│   └── 02-seed.sql                  # données de démonstration (15 clients, 18 commandes, 8 conversations...)
+│   ├── 02-seed.sql                  # données de démonstration (15 clients, 18 commandes, 8 conversations...)
+│   └── compare_embedding_models.py   # précision + vitesse de deux modèles d'embeddings, sur les vraies fiches
 ├── src/
 │   ├── data/
 │   │   ├── database.py               # connexion (DATABASE_URL) + exécution de requêtes PARAMÉTRÉES
@@ -42,7 +43,8 @@ cp .env.example .env               # vérifier que le port correspond à docker-
 docker-compose up -d                # PostgreSQL, avec schema + seed auto-appliqués au premier démarrage
 uv sync --extra dev
 uv run python main.py               # démo console : 4 questions, réponses ou escalades
-uv run pytest -v                    # 13 tests, contre la vraie base (voir la note ci-dessous)
+uv run pytest -v                    # tests, contre la vraie base (voir la note ci-dessous)
+uv run python scripts/compare_embedding_models.py   # précision + vitesse, MiniLM vs mpnet (réseau requis)
 ```
 
 **Si le conteneur existait déjà avant l'ajout de `scripts/`** (volume `postgres_data` non vide), l'auto-init ne se relance pas. Applique alors le schéma et les données à la main :
