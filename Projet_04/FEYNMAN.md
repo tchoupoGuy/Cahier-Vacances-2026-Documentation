@@ -27,6 +27,8 @@ La vraie solution, le RAG, imite ce que ferait un bon réceptionniste humain : p
 | **Embedding** | Un vecteur de nombres qui représente le sens d'un texte | Un "code postal du sens" : deux textes proches en signification ont des codes proches, même sans mots communs |
 | **Similarité cosinus** | Une mesure (entre -1 et 1) de la proximité entre deux vecteurs d'embedding | Mesurer à quel point deux flèches pointent dans la même direction |
 | **Base de données vectorielle** | Un stockage optimisé pour chercher rapidement les vecteurs les plus proches d'un vecteur donné | Le tiroir à fiches organisé pour retrouver instantanément les fiches les plus pertinentes |
+| **Chunking par fenêtre glissante** | Découper un texte par TAILLE fixe (avec chevauchement), plutôt que par structure (page, section) | Utile quand le document n'a pas de découpage naturel en petites unités mono-sujet, contrairement aux rubriques du Belvédère |
+| **Gradio** | Bibliothèque Python qui transforme une fonction en interface web, avec un lien de partage temporaire en option | Le raccourci pour donner un "visage" et une adresse publique à un script qui, sinon, ne tourne que dans un terminal |
 
 ## 3. Comment ça marche, en détail
 
@@ -88,8 +90,13 @@ meilleurs_chunks = similarités.flatten().argsort()[::-1][:k]  # les k passages 
 - Comment un embedding permet-il de retrouver "animaux domestiques" à partir de la question "acceptez-vous les chiens ?" alors qu'aucun mot n'est commun ?
 - À quoi sert la normalisation des embeddings avant de calculer une similarité par produit scalaire ?
 - Pourquoi la confidentialité est-elle un argument en faveur du RAG face aux API de LLM géants ?
+- `chunk_pages` (fenêtre glissante) et `load_pages` (par page) produisent les mêmes colonnes en sortie. Pourquoi ce choix de conception permet-il de changer de stratégie de chunking sans toucher à `VectorStore` ni à `rag_pipeline.py` ?
+- Pourquoi `webapp/app.py` n'active-t-il jamais `--share` par défaut, même si Gradio le permettrait en une ligne ?
 
 ## 7. Pour aller plus loin
 
 - Remplacer le tableau `numpy` par une vraie base vectorielle (FAISS ou Chroma) et comparer les temps de recherche sur un corpus plus gros.
 - Essayer un modèle de génération plus costaud (un Qwen plus grand, Mistral, ou une API comme Claude) et comparer la qualité des réponses.
+- **Fait** : deux évolutions ajoutées après un atelier Machine Learnia distinct (RAG sur une franchise de salles de sport fictive) qui utilisait exactement le même schéma (LLM nu → hallucination → RAG → réponse sourcée) — plutôt que dupliquer ce projet, ses deux vrais apports ont été greffés ici :
+  - `src/ingestion/chunking.py` — un découpage par fenêtre glissante (taille fixe + chevauchement), alternative au découpage par page de `pdf_loader.py`. Utile dès qu'un document est long et continu, sans repères structurels comme les rubriques du Belvédère.
+  - `webapp/app.py` — une interface Gradio par-dessus `answer_with_rag`, avec un lien public optionnel (`--share`, jamais activé par défaut).
